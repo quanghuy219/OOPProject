@@ -11,10 +11,12 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     public static SceneManager sceneManager;
+    public static DataManager dataManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         sceneManager = new SceneManager();
+        dataManager = new DataManager();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/MainStage.fxml"));
         Parent root = fxmlLoader.load();

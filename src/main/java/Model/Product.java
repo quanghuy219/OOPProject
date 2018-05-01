@@ -10,6 +10,7 @@ public class Product {
     private double importPrice;
 
     private String imageUrl;
+    private boolean isActive;
 
     public Product(String _productID, String _name, String _category, String _nation, int _remaining, double _salesPrice, double _receivedPrice)
     {
@@ -29,6 +30,9 @@ public class Product {
         this.setRemaining(129);
         this.setSalesPrice(1000000);
         this.setImportPrice(1200000);
+        this.setCategory("Movie");
+        this.setNation("Laos");
+        this.setActive(true);
     }
 
     public String getProductID() {
@@ -93,5 +97,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

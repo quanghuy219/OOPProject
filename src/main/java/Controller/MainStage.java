@@ -27,12 +27,8 @@ public class MainStage implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         //App.sceneManager.setMainBodyPane(mainBody);
-        new Thread() {
-            @Override
-            public void run() {
-                setActions();
-            }
-        }.start();
+        setActions();
+
     }
 
     public void setActions(){
