@@ -1,39 +1,56 @@
 package Model;
 
+import java.sql.SQLOutput;
+
 public class Product {
     private String productID;
     private String name;
-    private String category;
-    private int remaining;
-    private String nation;
-    private double salesPrice;
-    private double importPrice;
+    private Enum<Category> category;
+    private Enum<Status> status;
+
+    private int quantity;
+
+    private double sellingPrice;
+    private double buyingPrice;
+
+    private Enum<Nation> nation;
 
     private String imageUrl;
-    private boolean isActive;
+    private int discount;
 
-    public Product(String _productID, String _name, String _category, String _nation, int _remaining, double _salesPrice, double _receivedPrice)
+
+    public Product(String _productID, String _name, Enum<Category> _category, Enum<Status> _status, int _quantity, double _buyingPrice, double _sellingPrice, Enum<Nation> _nation, String _imageUrl, int _discount)
     {
         this.setProductID(_productID);
         this.setName(_name);
-        this.setRemaining(_remaining);
-        this.setSalesPrice(_salesPrice);
-        this.setImportPrice(_receivedPrice);
         this.setCategory(_category);
+        this.setStatus(_status);
+        this.setQuantity(_quantity);
+
+        this.setSellingPrice(_sellingPrice);
+        this.setBuyingPrice(_buyingPrice);
         this.setNation(_nation);
+
+        this.setImageUrl(_imageUrl);
+        this.setDiscount(_discount);
     }
 
     public Product()
     {
-        this.setProductID("PR00001");
-        this.setName("ABC");
-        this.setRemaining(129);
-        this.setSalesPrice(1000000);
-        this.setImportPrice(1200000);
-        this.setCategory("Movie");
-        this.setNation("Laos");
-        this.setActive(true);
+        this.setProductID("PR0001");
+        this.setName("Harry Potter");
+        this.setCategory(Category.BOOK);
+        this.setStatus(Status.ACTIVE);
+        this.setQuantity(100);
+
+        this.setSellingPrice(1000000);
+        this.setBuyingPrice(1200000);
+        this.setNation(Nation.UNITED_KINGDOM);
+
+        this.setImageUrl(null);
+        this.setDiscount(0);
     }
+
 
     public String getProductID() {
         return productID;
@@ -51,44 +68,52 @@ public class Product {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Enum<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Enum<Category> category) {
         this.category = category;
     }
 
-    public int getRemaining() {
-        return remaining;
+    public Enum<Status> getStatus() {
+        return status;
     }
 
-    public void setRemaining(int remaining) {
-        this.remaining = remaining;
+    public void setStatus(Enum<Status> status) {
+        this.status = status;
     }
 
-    public String getNation() {
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+
+    public double getBuyingPrice() {
+        return buyingPrice;
+    }
+
+    public void setBuyingPrice(double buyingPrice) {
+        this.buyingPrice = buyingPrice;
+    }
+
+    public Enum<Nation> getNation() {
         return nation;
     }
 
-    public void setNation(String nation) {
+    public void setNation(Enum<Nation> nation) {
         this.nation = nation;
-    }
-
-    public double getSalesPrice() {
-        return salesPrice;
-    }
-
-    public void setSalesPrice(double salesPrice) {
-        this.salesPrice = salesPrice;
-    }
-
-    public double getImportPrice() {
-        return importPrice;
-    }
-
-    public void setImportPrice(double importPrice) {
-        this.importPrice = importPrice;
     }
 
     public String getImageUrl() {
@@ -99,11 +124,28 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public int getDiscount() {
+        return discount;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public void printDetail()
+    {
+        System.out.println("ID: "+getProductID());
+        System.out.println("Name: "+getName());
+        System.out.println("Category: "+getCategory().toString());
+        System.out.println("Status: "+getStatus().toString());
+        System.out.println("Quantity: "+getQuantity());
+
+        System.out.println("BuyPrice: "+getBuyingPrice());
+        System.out.println("SellPrice: "+getSellingPrice());
+        System.out.println("Nation: "+getNation().toString());
+        System.out.println("Img: "+getImageUrl());
+        System.out.println("Discount: "+getDiscount());
     }
 }
+
+

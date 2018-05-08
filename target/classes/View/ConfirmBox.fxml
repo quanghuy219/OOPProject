@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ConfirmBoxController">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="350.0">
+          <children>
+              <Label fx:id="textLabel" alignment="CENTER" contentDisplay="CENTER" text="Are you sure to delete these 4 product?" VBox.vgrow="ALWAYS">
+                  <VBox.margin>
+                      <Insets top="20.0" />
+                  </VBox.margin>
+                  <font>
+                      <Font size="15.0" />
+                  </font>
+         </Label>
+              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                  <VBox.margin>
+                      <Insets />
+                  </VBox.margin>
+            <children>
+               <JFXButton fx:id="yesButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="50.0" text="YES" />
+               <JFXButton fx:id="noButton" layoutX="134.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="50.0" text="NO" />
+            </children>
+              </HBox>
+          </children>
+      </VBox>
+</AnchorPane>

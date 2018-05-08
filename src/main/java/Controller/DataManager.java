@@ -1,6 +1,9 @@
 package Controller;
 
+import java.util.Arrays;
+
 public class DataManager {
+
     private ProductsManager productsManager;
 
 

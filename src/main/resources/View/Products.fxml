@@ -71,17 +71,18 @@
          </padding></HBox>
       <TableView fx:id="productsTable" editable="true" layoutX="14.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="50.0">
         <columns>
-          <TableColumn fx:id="idColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="ID" />
+          <TableColumn fx:id="idColumn" maxWidth="100.0" minWidth="85.0" prefWidth="85.0" resizable="false" text="ID" />
           <TableColumn fx:id="nameColumn" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" resizable="false" text="Product" />
-            <TableColumn fx:id="categoryColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Category" />
-            <TableColumn fx:id="remainingColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="Qty" />
-            <TableColumn fx:id="salespriceColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Sales price" />
-            <TableColumn fx:id="importpriceColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Import price" />
-            <TableColumn fx:id="nationColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Nation" />
-            <TableColumn fx:id="statusColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Status" />
+            <TableColumn fx:id="categoryColumn" maxWidth="80.0" minWidth="80.0" resizable="false" text="Category" />
+            <TableColumn fx:id="statusColumn" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" resizable="false" text="Status" />
+            <TableColumn fx:id="quantityColumn" maxWidth="80.0" minWidth="80.0" resizable="false" text="Qty" />
+            <TableColumn fx:id="buyingPriceColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Buying price" />
+            <TableColumn fx:id="sellingPriceColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Selling price" />
+            <TableColumn fx:id="discountColumn" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" resizable="false" text="Discount" />
+            <TableColumn fx:id="nationColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Nation" />
         </columns>
       </TableView>
-      <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="1020.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1020.0" AnchorPane.topAnchor="75.0">
+      <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="1026.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1015.0" AnchorPane.topAnchor="75.0">
          <image>
             <Image url="@../Image/test180.png" />
          </image>

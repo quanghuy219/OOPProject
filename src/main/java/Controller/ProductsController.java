@@ -1,11 +1,16 @@
 package Controller;
 
+import Model.Nation;
 import Model.Product;
+import Model.Status;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +25,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,10 +38,11 @@ public class ProductsController implements Initializable {
     @FXML private TableColumn<Product, String> idColumn;
     @FXML private TableColumn<Product, String> nameColumn;
     @FXML private TableColumn<Product, String> categoryColumn;
-    @FXML private TableColumn<Product, Integer> remainingColumn;
-    @FXML private TableColumn<Product, Double> salespriceColumn;
-    @FXML private TableColumn<Product, Double> importpriceColumn;
     @FXML private TableColumn<Product, String> statusColumn;
+    @FXML private TableColumn<Product, Integer> quantityColumn;
+    @FXML private TableColumn<Product, Double> sellingPriceColumn;
+    @FXML private TableColumn<Product, Double> buyingPriceColumn;
+    @FXML private TableColumn<Product, Integer> discountColumn;
     @FXML private TableColumn<Product, String> nationColumn;
 
     @FXML private JFXButton searchButton;
@@ -66,29 +74,65 @@ public class ProductsController implements Initializable {
 
     public void bindTableData()
     {
-//        idColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
-//            Product p = cdf.getValue();
-//            return new SimpleStringProperty(p.getProductID());
-//        });
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        remainingColumn.setCellValueFactory(new PropertyValueFactory<>("remaining"));
-        salespriceColumn.setCellValueFactory(new PropertyValueFactory<>("salesPrice"));
-        nationColumn.setCellValueFactory(new PropertyValueFactory<>("nation"));
-        importpriceColumn.setCellValueFactory(new PropertyValueFactory<>("importPrice"));
+        idColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
+            Product p = cdf.getValue();
+            return new SimpleStringProperty(p.getProductID());
+        });
+
+        nameColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
+            Product p = cdf.getValue();
+            return new SimpleStringProperty(p.getName());
+        });
+
+        categoryColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
+            Product p = cdf.getValue();
+            String category = p.getCategory().toString().replace('_', ' ').toLowerCase();
+            category = WordUtils.capitalizeFully(category);
+            return new SimpleStringProperty(category);
+        });
+
         statusColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
             Product p = cdf.getValue();
-            String isActive;
-            if(p.isActive()) isActive = "Active";
-            else isActive = "Inactive";
-
-            return new SimpleStringProperty(isActive);
+            String status = p.getStatus().toString();
+            return new SimpleStringProperty(status);
         });
-//        statusColumn.setCellValueFactory(cellData -> cellData.getValue().);
 
-        //productsManager = new ProductsManager();
-        //System.out.println(productsManager.getProducts());
+        quantityColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, Integer> cdf) -> {
+            Product p = cdf.getValue();
+            int quantity = p.getQuantity();
+
+            return new SimpleIntegerProperty(quantity).asObject();
+        });
+
+        sellingPriceColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, Double> cdf) -> {
+            Product p = cdf.getValue();
+            double sellingPrice = p.getSellingPrice();
+
+            return new SimpleDoubleProperty(sellingPrice).asObject();
+        });
+
+        buyingPriceColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, Double> cdf) -> {
+            Product p = cdf.getValue();
+            double buyingPrice = p.getBuyingPrice();
+
+            return new SimpleDoubleProperty(buyingPrice).asObject();
+        });
+
+        discountColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, Integer> cdf) -> {
+            Product p = cdf.getValue();
+            int discount = p.getDiscount();
+
+            return new SimpleIntegerProperty(discount).asObject();
+        });
+
+        nationColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
+            Product p = cdf.getValue();
+            String nation = p.getNation().toString().replace('_', ' ').toLowerCase();
+            nation = WordUtils.capitalizeFully(nation);
+
+            return new SimpleStringProperty(nation);
+        });
+
         productsTable.setItems(App.dataManager.getProductsManager().getProducts());
         System.out.println(productsTable.getColumns());
     }
@@ -105,15 +149,11 @@ public class ProductsController implements Initializable {
 
     private void addButtonOnClick()
     {
-        //System.out.println(addButton.getText());
-        //App.dataManager.getProductsManager().getProducts().add(new Product());
         displayAddBox();
     }
 
     private void displayAddBox()
     {
-        JFXComboBox test;
-
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Add");
@@ -128,18 +168,12 @@ public class ProductsController implements Initializable {
         }
 
         Scene scene = new Scene(addLayout);
-        test = (JFXComboBox) scene.lookup("#testComboBox");
-        test.setEditable(true);
-        test.getItems().addAll(
-                "Hello",
-                "2",
-                "3",
-                "4",
-                "5"
-                );
+
+        AddProductController addProductController = (AddProductController) fxmlLoader.getController();
+        addProductController.setParentStage(window);
+        addProductController.setParentScene(scene);
 
         window.setScene(scene);
-
         window.showAndWait();
     }
 
