@@ -1,0 +1,32 @@
+package model.product;
+
+public enum MovieGenre {
+    Action,
+    Biographical,
+    Animated,
+    Adventure,
+    Comedy,
+    Family_Oriented,
+    Crime_Gangster,
+    Detective_Mystery,
+    Classic,
+    Drama,
+    Disaster,
+    Cult,
+    Historical,
+    Fantasy,
+    Documentary,
+    Horror,
+    Serial,
+    Musicals,
+    Science_Fiction,
+    Silent,
+    War,
+    Westerns,
+    Romance,
+    Sports,
+    Superhero,
+    Supernatural,
+    Thriller_Suspense,
+    Zombie;
+}
