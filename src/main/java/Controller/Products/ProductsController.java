@@ -1,8 +1,9 @@
 package Controller;
 
-import Model.Nation;
-import Model.Product;
-import Model.Status;
+import Controller.Products.UpdateProductController;
+import Model.Product.Book;
+import Model.Product.Mode;
+import Model.Product.Product;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
@@ -10,7 +11,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,12 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.IOException;
@@ -61,18 +60,55 @@ public class ProductsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addButton.setOnAction(e -> addButtonOnClick());
+
+        addButton.setOnAction(e -> displayAddBox());
         searchButton.setOnAction(e -> searchButtonOnClick());
         editButton.setOnAction(e -> editButtonOnClick());
         deleteButton.setOnAction(e -> deleteButtonOnClick());
+
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
+
+        handleRowSelection();
+        bindTableData();
+
+    }
+
+    private void handleRowSelection()
+    {
 
         productsTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE
         );
 
+//        productsTable.getSelectionModel().getSelectedItems().addListener((obs, oldSelection, newSelection) -> {
+//            System.out.println("selected : " + newSelection.getProductID());
+//        });
+
+        productsTable.getSelectionModel().getSelectedItems().addListener((ListChangeListener.Change<? extends Product> c) -> {
+            int numberSelections = c.getList().toArray().length;
+
+            System.out.println("select : "+numberSelections);
+            if(numberSelections == 0)
+            {
+                editButton.setDisable(true);
+                deleteButton.setDisable(true);
+            }
+            else if(numberSelections == 1)
+            {
+                editButton.setDisable(false);
+                deleteButton.setDisable(false);
+            }
+            else
+            {
+                editButton.setDisable(true);
+                deleteButton.setDisable(false);
+            }
+        });
+
     }
 
-    public void bindTableData()
+    private void bindTableData()
     {
         idColumn.setCellValueFactory((TableColumn.CellDataFeatures<Product, String> cdf) -> {
             Product p = cdf.getValue();
@@ -147,19 +183,14 @@ public class ProductsController implements Initializable {
         System.out.println(_idOrName + " " + _category + " " + _nation + " " + _isDeleted);
     }
 
-    private void addButtonOnClick()
-    {
-        displayAddBox();
-    }
-
     private void displayAddBox()
     {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Add");
+        window.setTitle("Add New Product");
         window.setMinWidth(400);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Products/Add.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Products/Update.fxml"));
         AnchorPane addLayout = null;
         try {
             addLayout = fxmlLoader.load();
@@ -169,18 +200,45 @@ public class ProductsController implements Initializable {
 
         Scene scene = new Scene(addLayout);
 
-        AddProductController addProductController = (AddProductController) fxmlLoader.getController();
-        addProductController.setParentStage(window);
-        addProductController.setParentScene(scene);
+        UpdateProductController updateProductController = (UpdateProductController) fxmlLoader.getController();
+        updateProductController.init(Mode.ADD, new Book());
+        updateProductController.setParentStage(window);
+        updateProductController.setParentScene(scene);
 
         window.setScene(scene);
         window.showAndWait();
     }
 
+    private void displayEditBox()
+    {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle("Edit product");
+        window.setMinWidth(400);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Products/Update.fxml"));
+        AnchorPane addLayout = null;
+        try {
+            addLayout = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(addLayout);
+
+        UpdateProductController updateProductController = (UpdateProductController) fxmlLoader.getController();
+        updateProductController.init(Mode.EDIT, productsTable.getSelectionModel().getSelectedItem());
+        updateProductController.setParentStage(window);
+        updateProductController.setParentScene(scene);
+
+        window.setScene(scene);
+        window.showAndWait();
+    }
 
     private void editButtonOnClick()
     {
         System.out.println("Edit...");
+        displayEditBox();
     }
 
     private void deleteButtonOnClick()
@@ -202,9 +260,6 @@ public class ProductsController implements Initializable {
                 selectedList.forEach(App.dataManager.getProductsManager().getProducts()::remove);
             }
         }
-
-
-
     }
 
     private boolean displayDeleteConfirmBox(int noOfSelectedRows)
@@ -257,6 +312,9 @@ public class ProductsController implements Initializable {
         return selection.get();
     }
 
-
+    public void refreshTable()
+    {
+        productsTable.refresh();
+    }
 
 }

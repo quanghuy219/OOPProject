@@ -38,16 +38,16 @@ public class Product {
     public Product()
     {
         this.setProductID("PR0001");
-        this.setName("Harry Potter");
+        this.setName("");
         this.setCategory(Category.BOOK);
         this.setStatus(Status.ACTIVE);
-        this.setQuantity(100);
+        this.setQuantity(0);
 
-        this.setSellingPrice(1000000);
-        this.setBuyingPrice(1200000);
+        this.setSellingPrice(0);
+        this.setBuyingPrice(0);
         this.setNation(Nation.UNITED_KINGDOM);
 
-        this.setImageUrl(null);
+        this.setImageUrl("default.png");
         this.setDiscount(0);
     }
 

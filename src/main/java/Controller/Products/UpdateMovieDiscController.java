@@ -1,4 +1,4 @@
-package Controller.AddProduct;
+package Controller.UpdateProduct;
 
 import Controller.App;
 import Model.*;
@@ -13,28 +13,42 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddMusicDiscController {
+public class UpdateMovieDiscController {
 
     private Boolean isClicked = false;
 
     private AnchorPane parentAnchorPane;
     private JFXTextField[] name;
+    private MovieDisc movie;
 
     @FXML
     private JFXComboBox<Integer> numberComboBox;
 
     @FXML
+    private JFXTextField directorTextField;
+
+    @FXML
     private JFXComboBox<String> languageComboBox;
+
+    @FXML
+    private JFXComboBox<String> subtitleComboBox;
 
     @FXML
     private JFXComboBox<String> genreComboBox;
 
     @FXML
+    private JFXTextField lengthTextField;
+
+    @FXML
+    private JFXTextField pointTextField;
+
+    @FXML
     private JFXDatePicker datePicker;
 
-    public void init(AnchorPane _parent){
+    public void init(AnchorPane _parent, MovieDisc _movie){
         if(!isClicked)
         {
+            movie = _movie;
             isClicked = true;
             setParentAnchorPane(_parent);
             setNameTextFields();
@@ -51,6 +65,14 @@ public class AddMusicDiscController {
         for (int i = 0; i < 5; i++) {
             name[i] =  (JFXTextField) getParentAnchorPane().lookup("#name" + (i+1));
         }
+
+        ArrayList<String> actors = movie.getListActors();
+        int nActors = actors.size();
+
+        for(int i = 0; i < nActors; i++)
+        {
+            name[i].setText(actors.get(i));
+        }
     }
 
     private void handleNumberComboBox() {
@@ -58,7 +80,9 @@ public class AddMusicDiscController {
             numberComboBox.getItems().add(i);
         }
 
-        numberComboBox.setValue(5);
+        int nActhors = movie.getListActors().size();
+
+        numberComboBox.setValue(nActhors);
 
         numberComboBox.setOnAction(e -> {
             int currentValue = numberComboBox.getValue();
@@ -77,25 +101,25 @@ public class AddMusicDiscController {
         String listLanguages[] = App.getEnumConstants(Model.Language.class);
         for (String c : listLanguages) {
             languageComboBox.getItems().add(c);
+            subtitleComboBox.getItems().add(c);
         }
 
-        languageComboBox.setValue(Language.ENGLISH.toString());
+        languageComboBox.setValue(movie.getLanguage().toString());
+        subtitleComboBox.setValue(movie.getSubtitle().toString());
     }
 
     private void handleGenreComboBox() {
-        String listGenre[] = App.getEnumConstants(Model.MusicGenre.class);
+        String listGenre[] = App.getEnumConstants(Model.MovieGenre.class);
         for (String c : listGenre) {
             genreComboBox.getItems().add(c);
         }
 
-        genreComboBox.setValue(MusicGenre.COUNTRY.toString());
+        genreComboBox.setValue(movie.getGenre().toString());
     }
 
     private void handleDatePicker() {
-        datePicker.setValue(LocalDateTime.now().toLocalDate());
+        datePicker.setValue(movie.getPublicDate());
     }
-
-
 
     public void setParentAnchorPane(AnchorPane _parent) {
         parentAnchorPane = _parent;
@@ -105,33 +129,41 @@ public class AddMusicDiscController {
         return parentAnchorPane;
     }
 
-    public MusicDisc getDetailedMovieDisc(Product _product) {
-        List<String> _listSingers = new ArrayList<String>();
+    public MovieDisc getDetailedMovieDisc(Product _product) {
+        ArrayList<String> _listActors = new ArrayList<String>();
+        String _director;
         Enum<Language> _language;
-        Enum<MusicGenre> _genre;
+        Enum<Language> _subtitle;
+        Enum<MovieGenre> _genre;
+        int _length;
+        float _point;
         LocalDate _publicDate;
 
-        MusicDisc result = new MusicDisc(_product);
+        MovieDisc result = new MovieDisc(_product);
 
         for (int i = 0; i < numberComboBox.getValue(); i++) {
-            _listSingers.add(name[i].getText());
+            _listActors.add(name[i].getText());
         }
 
+        _director = directorTextField.getText();
         _language = Enum.valueOf(Model.Language.class, languageComboBox.getValue());
-
-        _genre = Enum.valueOf(Model.MusicGenre.class, genreComboBox.getValue());
+        _subtitle = Enum.valueOf(Model.Language.class, subtitleComboBox.getValue());
+        _genre = Enum.valueOf(Model.MovieGenre.class, genreComboBox.getValue());
+        _length = Integer.valueOf(lengthTextField.getText());
+        _point = Float.valueOf(pointTextField.getText());
         _publicDate = datePicker.getValue();
 
-        result.setListSingers(_listSingers);
+        result.setListActors(_listActors);
+        result.setDirector(_director);
+
         result.setLanguage(_language);
+        result.setSubtitle(_subtitle);
+
         result.setGenre(_genre);
+        result.setLength(_length);
+        result.setImdbPoint(_point);
         result.setPublicDate(_publicDate);
 
         return result;
-    }
-
-    public void print()
-    {
-        System.out.println("hehe");
     }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="540.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddProduct.AddMovieDiscController">
+<AnchorPane prefHeight="540.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UpdateProduct.UpdateMovieDiscController">
     <children>
         <Label fx:id="numberLabel" layoutX="39.0" layoutY="30.0" text="Number" />
         <JFXComboBox fx:id="numberComboBox" layoutX="100.0" layoutY="26.0" prefHeight="25.0" prefWidth="70.0" promptText="number" />

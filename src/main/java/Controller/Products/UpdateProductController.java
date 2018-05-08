@@ -1,13 +1,12 @@
 package Controller;
 
-import Controller.AddProduct.AddBookController;
-import Controller.AddProduct.AddMovieDiscController;
-import Controller.AddProduct.AddMusicDiscController;
+import Controller.UpdateProduct.UpdateBookController;
+import Controller.UpdateProduct.UpdateMovieDiscController;
+import Controller.UpdateProduct.UpdateMusicDiscController;
 import Model.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,28 +14,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.management.modelmbean.ModelMBean;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class AddProductController implements Initializable {
+public class UpdateProductController {
     private Stage parentStage;
     private Scene parentScene;
     private FileChooser fileChooser;
+
+    private Enum<Mode> mode;
+    private Product product;
 
     @FXML private AnchorPane detailAnchorPane;
 
@@ -56,18 +52,20 @@ public class AddProductController implements Initializable {
     @FXML private JFXButton okButton;
     @FXML private JFXButton cancelButton;
 
-    private FXMLLoader addBookLoader;
-    private FXMLLoader addMusicDiscLoader;
-    private FXMLLoader addMovieDiscLoader;
+    private FXMLLoader updateBookLoader;
+    private FXMLLoader updateMusicDiscLoader;
+    private FXMLLoader updateMovieDiscLoader;
 
-    private Node addBookNode;
-    private Node addMusicDiscNode;
-    private Node addMovieDiscNode;
+    private Node updateBookNode;
+    private Node updateMusicDiscNode;
+    private Node updateMovieDiscNode;
 
     private String currentImgUrl;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void init(Enum<Mode> _mode, Product _product) {
+
+        product = _product;
+        mode = _mode;
 
         currentImgUrl = App.defaultPath;
 
@@ -79,10 +77,11 @@ public class AddProductController implements Initializable {
 
         handleOkButton();
         handleCancelButton();
+        handleImageView();
 
         initializeLoaders();
 
-        loadDetailPane(Category.BOOK);
+        loadDetailPane(product.getCategory());
 
 //        try {
 //            File f = new File(getClass().getResource("/Image/default.png").toURI());
@@ -103,67 +102,66 @@ public class AddProductController implements Initializable {
 
         if(_category == Category.BOOK)
         {
-            detailAnchorPane.getChildren().add(addBookNode);
+            detailAnchorPane.getChildren().add(updateBookNode);
 
-            AddBookController addBookController = addBookLoader.getController();
-            addBookController.init(detailAnchorPane);
+            UpdateBookController updateBookController = updateBookLoader.getController();
+            updateBookController.init(detailAnchorPane, ((Book) product));
         }
 
         else if(_category == Category.MOVIE_DISC)
         {
-            detailAnchorPane.getChildren().add(addMovieDiscNode);
+            detailAnchorPane.getChildren().add(updateMovieDiscNode);
 
-            AddMovieDiscController addMovieDiscController = addMovieDiscLoader.getController();
-            addMovieDiscController.init(detailAnchorPane);
+            UpdateMovieDiscController updateMovieDiscController = updateMovieDiscLoader.getController();
+            updateMovieDiscController.init(detailAnchorPane, ((MovieDisc) product));
         }
 
         else if(_category == Category.MUSIC_DISC)
         {
-            detailAnchorPane.getChildren().add(addMusicDiscNode);
-            AddMusicDiscController addMusicDiscController = addMusicDiscLoader.getController();
-            addMusicDiscController.init(detailAnchorPane);
+            detailAnchorPane.getChildren().add(updateMusicDiscNode);
+            UpdateMusicDiscController updateMusicDiscController = updateMusicDiscLoader.getController();
+            updateMusicDiscController.init(detailAnchorPane, ((MusicDisc) product));
         }
 
     }
 
     private void initializeLoaders()
     {
-        addBookLoader = new FXMLLoader(getClass().getResource("/View/Products/AddBook.fxml"));
+        updateBookLoader = new FXMLLoader(getClass().getResource("/View/Products/UpdateBook.fxml"));
 
-        addMovieDiscLoader = new FXMLLoader(getClass().getResource("/View/Products/AddMovieDisc.fxml"));
-//        AddBookController addBookController = addBookLoader.getController();
-//        addBookController.setParentAnchorPane(detailAnchorPane);
+        updateMovieDiscLoader = new FXMLLoader(getClass().getResource("/View/Products/UpdateMovieDisc.fxml"));
 
-        addMusicDiscLoader = new FXMLLoader(getClass().getResource("/View/Products/AddMusicDisc.fxml"));
-//        AddBookController addBookController = addBookLoader.getController();
-//        addBookController.setParentAnchorPane(detailAnchorPane);
+        updateMusicDiscLoader = new FXMLLoader(getClass().getResource("/View/Products/UpdateMusicDisc.fxml"));
 
         try {
-            addBookNode = addBookLoader.load();
+            updateBookNode = updateBookLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            addMovieDiscNode = addMovieDiscLoader.load();
+            updateMovieDiscNode = updateMovieDiscLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            addMusicDiscNode = addMusicDiscLoader.load();
+            updateMusicDiscNode = updateMusicDiscLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //addBookController.setParentAnchorPane(detailAnchorPane);
-        //addBookController.initialize();
-
     }
 
     private void handleIdTextField()
     {
-        idTextField.setText(App.dataManager.getProductsManager().getNextProductID());
+        if(mode == Mode.ADD)
+        {
+            idTextField.setText(App.dataManager.getProductsManager().getNextProductID());
+        }
+        else
+        {
+            idTextField.setText(product.getProductID());
+        }
     }
 
     private void handleCategoryComboBox()
@@ -174,12 +172,20 @@ public class AddProductController implements Initializable {
             categoryComboBox.getItems().add(c);
         }
 
-        categoryComboBox.setValue(Category.BOOK.toString());
+        categoryComboBox.setValue(product.getCategory().toString());
 
-        categoryComboBox.setOnAction(e -> {
-            String currentCategory = categoryComboBox.getValue();
-            loadDetailPane(Enum.valueOf(Category.class, currentCategory));
-        });
+        if(mode == Mode.ADD)
+        {
+            categoryComboBox.setOnAction(e -> {
+                String currentCategory = categoryComboBox.getValue();
+                loadDetailPane(Enum.valueOf(Category.class, currentCategory));
+            });
+        }
+        else
+        {
+            categoryComboBox.setDisable(true);
+        }
+
     }
 
     private void handleStatusComboBox()
@@ -190,7 +196,7 @@ public class AddProductController implements Initializable {
             statusComboBox.getItems().add(c);
         }
 
-        statusComboBox.setValue(Status.ACTIVE.toString());
+        statusComboBox.setValue(product.getStatus().toString());
     }
 
     private void handleNationComboBox()
@@ -201,20 +207,24 @@ public class AddProductController implements Initializable {
             nationComboBox.getItems().add(c);
         }
 
-        nationComboBox.setValue(Nation.VIETNAM.toString());
+        nationComboBox.setValue(product.getNation().toString());
     }
 
     private void handleOkButton()
     {
         okButton.setOnAction(e -> {
 
-            Boolean selection = App.displayConfirmBox("Are you sure to add this product?");
+            String text = "Are you sure to *** this product?";
+            if(mode == Mode.ADD) text = text.replace("***", "add");
+            else text = text.replace("***", "update");
+
+            Boolean selection = App.displayConfirmBox(text);
 
             if(selection)
             {
                 Product result = getProduct();
 
-                App.dataManager.getProductsManager().addProduct(result);
+                App.dataManager.getProductsManager().addUpdateProduct(result);
 
                 if(result.getCategory() == Category.BOOK)
                 {
@@ -233,6 +243,9 @@ public class AddProductController implements Initializable {
                 }
 
                 getParentStage().close();
+
+                ProductsController pc = App.sceneManager.getLoader("Products").getController();
+                pc.refreshTable();
             }
         });
     }
@@ -240,11 +253,18 @@ public class AddProductController implements Initializable {
     private void handleCancelButton()
     {
         cancelButton.setOnAction(e -> {
-            Boolean selection = App.displayConfirmBox("Are you sure to cancel adding a new product?");
+            String text = "Are you sure to cancel";
+            if(mode == Mode.ADD)
+            {
+                text = text.concat(" adding this new product ?");
+            }
+            else text = text.concat(" updating this product ?");
+
+            Boolean selection = App.displayConfirmBox(text);
 
             if(selection)
             {
-                System.out.println("Cancel adding product");
+                System.out.println("Cancel the process");
                 getParentStage().close();
             }
         });
@@ -277,6 +297,12 @@ public class AddProductController implements Initializable {
         );
     }
 
+    private void handleImageView()
+    {
+        Image g = new Image("/Image/"+product.getImageUrl());
+        image.setImage(g);
+    }
+
     private static void configureFileChooser(final FileChooser fileChooser){
         fileChooser.setTitle("Choose Picture");
         fileChooser.setInitialDirectory(
@@ -295,7 +321,6 @@ public class AddProductController implements Initializable {
 //        Image i = new Image(file.getAbsolutePath());
         image.setImage(i);
     }
-
 
     public Stage getParentStage() {
         return parentStage;
@@ -331,24 +356,24 @@ public class AddProductController implements Initializable {
 
         if(currentCategory.equals(Category.BOOK.toString()))
         {
-            AddBookController addBookController = addBookLoader.getController();
-            Book detailedBook = addBookController.getDetailedBook(result);
+            UpdateBookController updateBookController = updateBookLoader.getController();
+            Book detailedBook = updateBookController.getDetailedBook(result);
 
             return (Product) detailedBook;
         }
 
         else if(currentCategory.equals(Category.MOVIE_DISC.toString()))
         {
-            AddMovieDiscController addMovieDiscController = addMovieDiscLoader.getController();
-            MovieDisc detailedMovieDisc = addMovieDiscController.getDetailedMovieDisc(result);
+            UpdateMovieDiscController updateMovieDiscController = updateMovieDiscLoader.getController();
+            MovieDisc detailedMovieDisc = updateMovieDiscController.getDetailedMovieDisc(result);
 
             return (Product) detailedMovieDisc;
         }
 
         else
         {
-            AddMusicDiscController addMusicDiscController = addMusicDiscLoader.getController();
-            MusicDisc detailedMusicDisc = addMusicDiscController.getDetailedMovieDisc(result);
+            UpdateMusicDiscController updateMusicDiscController = updateMusicDiscLoader.getController();
+            MusicDisc detailedMusicDisc = updateMusicDiscController.getDetailedMovieDisc(result);
 
             return (Product) detailedMusicDisc;
         }
@@ -394,7 +419,4 @@ public class AddProductController implements Initializable {
     public void setParentScene(Scene parentScene) {
         this.parentScene = parentScene;
     }
-
-
-
 }

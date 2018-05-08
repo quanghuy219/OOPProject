@@ -1,11 +1,14 @@
 package Model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class MovieDisc extends Product {
-    private List<String> listActors;
+    private ArrayList<String> listActors;
     private String director;
 
     private Enum<Language> language;
@@ -15,14 +18,31 @@ public class MovieDisc extends Product {
     private float imdbPoint;
     private LocalDate publicDate;
 
+    public MovieDisc()
+    {
+        super();
+        this.setCategory(Category.MOVIE_DISC);
+        this.setListActors(new ArrayList<String>(Arrays.asList("", "", "", "", "")));
+        this.setDirector("");
+
+        this.setLanguage(Language.ENGLISH);
+        this.setSubtitle(Language.VIETNAMESE);
+        this.setGenre(MovieGenre.Action);
+        this.setLength(0);
+        this.setImdbPoint(0.0f);
+        this.setPublicDate(LocalDateTime.now().toLocalDate());
+    }
+
     public MovieDisc(Product _product)
     {
         super(_product.getProductID(), _product.getName(), _product.getCategory(), _product.getStatus(), _product.getQuantity(), _product.getBuyingPrice(), _product.getSellingPrice(), _product.getNation(), _product.getImageUrl(), _product.getDiscount());
+        this.setCategory(Category.MOVIE_DISC);
     }
 
-    public MovieDisc(String _productID, String _name, Enum<Category> _category, Enum<Status> _status, int _quantity, double _buyingPrice, double _sellingPrice, Enum<Nation> _nation, String _imageUrl, int _discount, List<String> _listActors, String _director, Enum<Language> _language,  Enum<Language> _subtitle, Enum<MovieGenre> _genre, int _length, float _imdbPoint, LocalDate _publicDate)
+    public MovieDisc(String _productID, String _name, Enum<Category> _category, Enum<Status> _status, int _quantity, double _buyingPrice, double _sellingPrice, Enum<Nation> _nation, String _imageUrl, int _discount, ArrayList<String> _listActors, String _director, Enum<Language> _language,  Enum<Language> _subtitle, Enum<MovieGenre> _genre, int _length, float _imdbPoint, LocalDate _publicDate)
     {
         super(_productID, _name, _category, _status, _quantity, _buyingPrice, _sellingPrice, _nation, _imageUrl, _discount);
+        this.setCategory(Category.MOVIE_DISC);
 
         this.setListActors(_listActors);
         this.setDirector(_director);
@@ -36,11 +56,11 @@ public class MovieDisc extends Product {
 
     }
 
-    public List<String> getListActors() {
+    public ArrayList<String> getListActors() {
         return listActors;
     }
 
-    public void setListActors(List<String> listActors) {
+    public void setListActors(ArrayList<String> listActors) {
         this.listActors = listActors;
     }
 

@@ -1,4 +1,4 @@
-package Controller.AddProduct;
+package Controller.UpdateProduct;
 
 import Controller.App;
 import Model.Book;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddBookController {
+public class UpdateBookController {
 
     private Boolean isClicked = false;
 
@@ -25,12 +25,6 @@ public class AddBookController {
 
     @FXML
     private JFXComboBox<Integer> numberComboBox;
-
-    //@FXML private JFXTextField name1[];
-//    @FXML private JFXTextField name2;
-//    @FXML private JFXTextField name3;
-//    @FXML private JFXTextField name4;
-//    @FXML private JFXTextField name5;
 
     @FXML
     private JFXComboBox<String> languageComboBox;
@@ -41,12 +35,15 @@ public class AddBookController {
     @FXML
     private JFXDatePicker datePicker;
 
-    public void init(AnchorPane _parent){
+    private Book book;
+
+    public void init(AnchorPane _parent, Book _book){
         if(!isClicked)
         {
+            book = _book;
             isClicked = true;
             setParentAnchorPane(_parent);
-            setNameTextFields();
+            handleNameTextFields();
             handleNumberComboBox();
             handleLanguageComboBox();
             handleDatePicker();
@@ -54,11 +51,19 @@ public class AddBookController {
         }
     }
 
-    private void setNameTextFields() {
+    private void handleNameTextFields() {
         name = new JFXTextField[5];
 
         for (int i = 0; i < 5; i++) {
             name[i] =  (JFXTextField) getParentAnchorPane().lookup("#name" + (i+1));
+        }
+
+        ArrayList<String> authors = book.getListAuthors();
+        int nAuthors = authors.size();
+
+        for(int i = 0; i < nAuthors; i++)
+        {
+            name[i].setText(authors.get(i));
         }
     }
 
@@ -67,7 +72,9 @@ public class AddBookController {
             numberComboBox.getItems().add(i);
         }
 
-        numberComboBox.setValue(5);
+        int nAuthors = book.getListAuthors().size();
+
+        numberComboBox.setValue(nAuthors);
 
         numberComboBox.setOnAction(e -> {
             int currentValue = numberComboBox.getValue();
@@ -87,7 +94,7 @@ public class AddBookController {
             languageComboBox.getItems().add(c);
         }
 
-        languageComboBox.setValue(Language.VIETNAMESE.toString());
+        languageComboBox.setValue(book.getLanguage().toString());
     }
 
     private void handleGenreComboBox() {
@@ -96,14 +103,12 @@ public class AddBookController {
             genreComboBox.getItems().add(c);
         }
 
-        genreComboBox.setValue(BookGenre.THRILLER.toString());
+        genreComboBox.setValue(book.getGenre().toString());
     }
 
     private void handleDatePicker() {
-        datePicker.setValue(LocalDateTime.now().toLocalDate());
+        datePicker.setValue(book.getPublicDate());
     }
-
-
 
     public void setParentAnchorPane(AnchorPane _parent) {
         parentAnchorPane = _parent;
@@ -114,7 +119,7 @@ public class AddBookController {
     }
 
     public Book getDetailedBook(Product _product) {
-        List<String> _listAuthors = new ArrayList<String>();
+        ArrayList<String> _listAuthors = new ArrayList<String>();
 
         Enum<Language> _language;
         Enum<BookGenre> _genre;
@@ -139,10 +144,5 @@ public class AddBookController {
         result.setPublicDate(_publicDate);
 
         return result;
-    }
-
-    public void print()
-    {
-        System.out.println("hehe");
     }
 }
