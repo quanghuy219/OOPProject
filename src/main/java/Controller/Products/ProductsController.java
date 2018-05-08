@@ -1,9 +1,11 @@
 package Controller;
 
-import Controller.Products.UpdateProductController;
-import Model.Product.Book;
-import Model.Product.Mode;
-import Model.Product.Product;
+import Controller.UpdateProductController;
+import Model.Mode;
+import Model.Product;
+import Model.Book;
+import Model.Mode;
+import Model.Product;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
@@ -200,7 +202,7 @@ public class ProductsController implements Initializable {
 
         Scene scene = new Scene(addLayout);
 
-        UpdateProductController updateProductController = (UpdateProductController) fxmlLoader.getController();
+        Controller.UpdateProductController updateProductController = (Controller.UpdateProductController) fxmlLoader.getController();
         updateProductController.init(Mode.ADD, new Book());
         updateProductController.setParentStage(window);
         updateProductController.setParentScene(scene);
@@ -226,7 +228,7 @@ public class ProductsController implements Initializable {
 
         Scene scene = new Scene(addLayout);
 
-        UpdateProductController updateProductController = (UpdateProductController) fxmlLoader.getController();
+        Controller.UpdateProductController updateProductController = (Controller.UpdateProductController) fxmlLoader.getController();
         updateProductController.init(Mode.EDIT, productsTable.getSelectionModel().getSelectedItem());
         updateProductController.setParentStage(window);
         updateProductController.setParentScene(scene);
