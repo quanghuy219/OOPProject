@@ -56,6 +56,8 @@ public class EmployeesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        administerUserPermission();
+
         addButton.setOnAction(e -> displayAddBox());
         editButton.setOnAction(e -> displayEditBox());
         deleteButton.setOnAction(e -> deleteButtonOnClick());
@@ -69,26 +71,48 @@ public class EmployeesController implements Initializable {
         handleResetButton();
     }
 
+    private void administerUserPermission()
+    {
+        if(App.getUser().getLevel() == Level.EMPLOYEE)
+        {
+            salaryColumn.setVisible(false);
+            usernameColumn.setVisible(false);
+            passwordColumn.setVisible(false);
+
+            salaryColumn.setPrefWidth(0);
+            usernameColumn.setPrefWidth(0);
+            passwordColumn.setPrefWidth(0);
+            //employeesTable.setPrefWidth(840);
+
+            addButton.setDisable(true);
+            editButton.setDisable(true);
+            deleteButton.setDisable(true);
+        }
+    }
+
     private void bindTableData()
     {
         employeesTable.getSelectionModel().setSelectionMode(
                 SelectionMode.SINGLE
         );
 
-        employeesTable.getSelectionModel().getSelectedItems().addListener((ListChangeListener.Change<? extends Employee> c) -> {
-            int numberSelections = c.getList().toArray().length;
+        if(App.getUser().getLevel() != Level.EMPLOYEE)
+        {
+            employeesTable.getSelectionModel().getSelectedItems().addListener((ListChangeListener.Change<? extends Employee> c) -> {
+                int numberSelections = c.getList().toArray().length;
 
-            if(numberSelections == 0)
-            {
-                editButton.setDisable(true);
-                deleteButton.setDisable(true);
-            }
-            else if(numberSelections == 1)
-            {
-                editButton.setDisable(false);
-                deleteButton.setDisable(false);
-            }
-        });
+                if(numberSelections == 0)
+                {
+                    editButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                }
+                else if(numberSelections == 1)
+                {
+                    editButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
+            });
+        }
 
         idColumn.setCellValueFactory((TableColumn.CellDataFeatures<Employee, String> cdf) -> {
             Employee e = cdf.getValue();
@@ -144,15 +168,18 @@ public class EmployeesController implements Initializable {
 
         nameFilter.bind(Bindings.createObjectBinding(() ->
                 employee -> {
-                    String name = searchTextField.getText().toLowerCase();
-                    if(employee.getEmployeeID().toLowerCase().contains(name) || employee.getName().toLowerCase().contains(name))
+                    String name = searchTextField.getText();
+                    if(name == null || name.equals("")) return true;
+                    if(employee.getEmployeeID().toLowerCase().contains(name.toLowerCase()) || employee.getName().toLowerCase().contains(name.toLowerCase()))
                         return true;
                     else return false;
                 }, searchTextField.textProperty()));
 
         levelFilter.bind(Bindings.createObjectBinding(() ->
                 employee -> {
-                    if(levelComboBox.getValue() == null || Enum.valueOf(Level.class, levelComboBox.getValue()) == employee.getLevel())
+                    if(levelComboBox.getValue() == null)
+                        return true;
+                    else if(Enum.valueOf(Level.class, levelComboBox.getValue()) == employee.getLevel())
                         return true;
                     else return false;
                 }, levelComboBox.valueProperty()));
@@ -249,10 +276,11 @@ public class EmployeesController implements Initializable {
     {
         resetButton.setOnAction(e -> {
             levelComboBox.setValue(null);
-            searchTextField.setText(null);
+            searchTextField.setText("");
+            refreshTable();
         });
 
-        refreshTable();
+
     }
 
 }

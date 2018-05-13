@@ -322,7 +322,7 @@ public class UpdateProductController {
 
     private void handleImageView()
     {
-        File f = new File("src/main/resources/image/" + product.getImageUrl());
+        File f = new File(FinalPaths.IMAGE + product.getImageUrl());
 //        image g = new image(System.class.getResourceAsStream("/image/"+product.getImageUrl()));
         Image g = new Image(f.toURI().toString());
         image.setImage(g);
@@ -413,10 +413,10 @@ public class UpdateProductController {
 
     private String saveImage(String sourcePath, String destPath) throws IOException {
 
-        if(sourcePath.equals(App.defaultPath))
-        {
-            return "default.png";
-        }
+//        if(sourcePath.equals(App.defaultPath))
+//        {
+//            return "default.png";
+//        }
 
 //        File f = File.createTempFile("/image/destPath", "png");
 //        OutputStream f1 = new FileOutputStream(f);
@@ -443,7 +443,7 @@ public class UpdateProductController {
         System.out.println(destPath);
 
 //    src/main/resources
-        destPath = "src/main/resources/image/".concat(destPath);
+        destPath = FinalPaths.IMAGE.concat(destPath);
         //File f = File.createTempFile("/image/")
 
         OutputStream destFile = new FileOutputStream(destPath);

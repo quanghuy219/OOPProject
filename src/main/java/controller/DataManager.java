@@ -67,7 +67,7 @@ public class DataManager {
     private void readProductsFile()
     {
         try {
-            File file = new File("src/main/resources/data/Products.txt");
+            File file = new File(FinalPaths.DATA+"Products.txt");
             System.out.println(file.getAbsolutePath());
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -95,7 +95,7 @@ public class DataManager {
         //String comment = "# Category|productID|name|status|quantity|sellingPrice|buyingPrice|nation|imageURL|discount\n";
 
         try {
-            File file = new File("src/main/resources/data/Products.txt");
+            File file = new File(FinalPaths.DATA+"Products.txt");
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -122,7 +122,7 @@ public class DataManager {
         //String comment = "# Category|productID|name|status|quantity|sellingPrice|buyingPrice|nation|imageURL|discount\n";
 
         try {
-            File file = new File("src/main/resources/data/BuyReceipts.txt");
+            File file = new File(FinalPaths.DATA+"BuyReceipts.txt");
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -145,7 +145,7 @@ public class DataManager {
     private void readBuyReceiptsFile()
     {
         try {
-            File file = new File("src/main/resources/data/BuyReceipts.txt");
+            File file = new File(FinalPaths.DATA+"BuyReceipts.txt");
             System.out.println(file.getAbsolutePath());
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -196,7 +196,7 @@ public class DataManager {
     private void readExpensesFile()
     {
         try {
-            File file = new File("src/main/resources/data/Expenses.txt");
+            File file = new File(FinalPaths.DATA+"Expenses.txt");
             System.out.println(file.getAbsolutePath());
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -220,7 +220,7 @@ public class DataManager {
     private void writeExpensesFile()
     {
         try {
-            File file = new File("src/main/resources/data/Expenses.txt");
+            File file = new File(FinalPaths.DATA+"Expenses.txt");
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -245,7 +245,7 @@ public class DataManager {
         //String comment = "# Category|productID|name|status|quantity|sellingPrice|buyingPrice|nation|imageURL|discount\n";
 
         try {
-            File file = new File("src/main/resources/data/SellReceipts.txt");
+            File file = new File(FinalPaths.DATA+"SellReceipts.txt");
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -268,7 +268,7 @@ public class DataManager {
     private void readSellReceiptsFile()
     {
         try {
-            File file = new File("src/main/resources/data/SellReceipts.txt");
+            File file = new File(FinalPaths.DATA+"SellReceipts.txt");
             System.out.println(file.getAbsolutePath());
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -412,7 +412,7 @@ public class DataManager {
     private void readEmployeesFile()
     {
         try {
-            File file = new File("src/main/resources/data/Employees.txt");
+            File file = new File(FinalPaths.DATA+"Employees.txt");
             System.out.println(file.getAbsolutePath());
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -436,7 +436,7 @@ public class DataManager {
     private void writeEmployeesFile()
     {
         try {
-            File file = new File("src/main/resources/data/Employees.txt");
+            File file = new File(FinalPaths.DATA+"Employees.txt");
             FileWriter fileWriter = new FileWriter(file, false);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 

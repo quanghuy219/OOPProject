@@ -1,5 +1,7 @@
 package model.employee;
 
+import controller.App;
+
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
@@ -29,14 +31,14 @@ public class Employee {
 
     public Employee()
     {
-        this.setEmployeeID("EE0000");
+        this.setEmployeeID(App.dataManager.getEmployeesManager().getNextEmployeeID());
         this.setName("");
         this.setStatus(Status.ACTIVE);
         this.setLevel(Level.EMPLOYEE);
         this.setDob(LocalDate.now());
         this.setPhoneNumber("");
         this.setSalary(0);
-        this.setUsername("");
+        this.setUsername(getEmployeeID());
         this.setPassword("");
     }
 

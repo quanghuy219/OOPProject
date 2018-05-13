@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -74,8 +75,9 @@ public class InventoryController implements Initializable {
     @FXML
     private TextArea remarkTextArea;
 
-    private FilteredList<BuyReceipt> filteredData;
+    @FXML private VBox detailPane;
 
+    private FilteredList<BuyReceipt> filteredData;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -184,9 +186,10 @@ public class InventoryController implements Initializable {
                 setRemarkTextArea(newSelection.getRemark());
 
                 remarkTextArea.setDisable(false);
-
-                System.out.println(newSelection.toString());
-            } else {
+                detailPane.setVisible(true);
+            }
+            else {
+                detailPane.setVisible(false);
                 detailReceiptTable.setItems(null);
                 setTotalCostLabel(0.0);
                 setRemarkTextArea("");
@@ -267,9 +270,12 @@ public class InventoryController implements Initializable {
 
             BuyReceipt currentSelected = buyReceiptsTable.getSelectionModel().getSelectedItem();
 
-            if (!newValue.equals(oldValue) && !newValue.equals(currentSelected.getRemark())) {
-                saveButton.setDisable(false);
-            } else saveButton.setDisable(true);
+            if(newValue != null && oldValue != null)
+            {
+                if (!newValue.equals(oldValue) && !newValue.equals(currentSelected.getRemark())) {
+                    saveButton.setDisable(false);
+                } else saveButton.setDisable(true);
+            }
         });
     }
 

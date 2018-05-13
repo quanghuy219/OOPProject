@@ -12,6 +12,9 @@ public class LoginManager {
 
     public Employee authenticate(String _username, String _password)
     {
+
+        //if(_username.equals("1") && _password.equals("1")) return new Employee();
+
         ObservableList<Employee> listEmployees = App.dataManager.getEmployeesManager().getListEmployees();
 
         for(Employee e: listEmployees)

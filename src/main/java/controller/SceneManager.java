@@ -11,7 +11,6 @@ public class SceneManager {
 
     private MainStageController mainStageController;
 
-   // private Stage mainStage;
     private Pane mainBodyPane;
 
     public SceneManager()
@@ -24,16 +23,6 @@ public class SceneManager {
         mainStageController.setPaneContent(menuTitle);
     }
 
-
-
-//    public Stage getMainStage() {
-//        return mainStage;
-//    }
-//
-//    public void setMainStage(Stage mainStage) {
-//        this.mainStage = mainStage;
-//    }
-//
     public void setMainStageController(MainStageController mainStageController) {
         this.mainStageController = mainStageController;
     }
