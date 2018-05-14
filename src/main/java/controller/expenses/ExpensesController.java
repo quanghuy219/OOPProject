@@ -96,7 +96,7 @@ public class ExpensesController implements Initializable {
 
         purchaserColumn.setCellValueFactory((TableColumn.CellDataFeatures<Expense, String> cdf) -> {
             Expense e = cdf.getValue();
-            return new SimpleStringProperty(e.getCreatedBy());
+            return new SimpleStringProperty(e.getPurchaser());
         });
 
         costColumn.setCellValueFactory((TableColumn.CellDataFeatures<Expense, String> cdf) -> {
@@ -116,7 +116,7 @@ public class ExpensesController implements Initializable {
                 expense -> {
                     String text = searchText.getText().toLowerCase();
                     if(text.equals("")) return true;
-                    return (expense.getExpenseID().toLowerCase().contains(text) || expense.getCreatedBy().toLowerCase().contains(text) || expense.getRemark().toLowerCase().contains(text));
+                    return (expense.getExpenseID().toLowerCase().contains(text) || expense.getPurchaser().toLowerCase().contains(text) || expense.getRemark().toLowerCase().contains(text));
                 }, searchText.textProperty()));
 
 
@@ -180,7 +180,7 @@ public class ExpensesController implements Initializable {
         expenseIDLabel.setText(_expense.getExpenseID());
         costLabel.setText(String.format("%.0f",_expense.getCost()));
         purchaseDate.setValue(_expense.getPurchaseDate());
-        purchaserLabel.setText(_expense.getCreatedBy());
+        purchaserLabel.setText(_expense.getPurchaser());
         remarkTextArea.setText(_expense.getRemark());
     }
 

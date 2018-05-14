@@ -9,7 +9,7 @@ public class Expense {
     private String expenseID;
     private Double cost;
     private LocalDate purchaseDate;
-    private String createdBy;
+    private String purchaser;
     private String remark;
 
     public Expense()
@@ -17,7 +17,7 @@ public class Expense {
         setExpenseID("");
         setCost(0.0);
         setPurchaseDate(null);
-        setCreatedBy("");
+        setPurchaser("");
         setRemark("");
     }
 
@@ -26,7 +26,7 @@ public class Expense {
         this.setExpenseID(_expenseID);
         this.setCost(_cost);
         this.setPurchaseDate(_date);
-        this.setCreatedBy(_purchaser);
+        this.setPurchaser(_purchaser);
         this.setRemark(_remark);
     }
 
@@ -62,12 +62,12 @@ public class Expense {
         this.remark = remark;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getPurchaser() {
+        return purchaser;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setPurchaser(String purchaser) {
+        this.purchaser = purchaser;
     }
 
     /*
@@ -79,7 +79,7 @@ public class Expense {
         text = text.concat(getExpenseID()).concat("|");
         text = text.concat(String.valueOf(getCost())).concat("|");
         text = text.concat(getPurchaseDate().toString()).concat("|");
-        text = text.concat(getCreatedBy()).concat("|");
+        text = text.concat(getPurchaser()).concat("|");
         text = text.concat(App.stringToAscii(getRemark())).concat(" |");
 
         return text;
@@ -102,7 +102,7 @@ public class Expense {
         e.setExpenseID(parts[0]);
         e.setCost(Double.valueOf(parts[1]));
         e.setPurchaseDate(LocalDate.parse(parts[2]));
-        e.setCreatedBy(parts[3]);
+        e.setPurchaser(parts[3]);
         e.setRemark(App.asciiToString(parts[4]));
 
         return e;
