@@ -39,6 +39,9 @@ public class AddExpenseController implements Initializable {
         handleCancelButton();
     }
 
+    /*
+    *   Auto set ID to new expense
+     */
     private void setExpenseIDLabel()
     {
         String _expenseID = App.dataManager.getExpensesManager().getNextExpenseID();
@@ -55,6 +58,9 @@ public class AddExpenseController implements Initializable {
         purchaserLabel.setText(App.getUser().getName());
     }
 
+    /*
+    *   Validate input data
+     */
     private void handleSaveButton()
     {
         costTextField.textProperty().addListener((observable, oldValue, newValue) -> {

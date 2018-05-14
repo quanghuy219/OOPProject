@@ -1,5 +1,9 @@
 package controller.cashflow;
 
+/*
+* Controller handles binding data from cash flow Manager to displayed table
+*/
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import controller.App;
@@ -72,6 +76,7 @@ public class CashflowController implements Initializable {
 
     private void bindEntriesTable()
     {
+        // format data shown in the column of the table
         dateColumn.setCellValueFactory((TableColumn.CellDataFeatures<Entry, String> cdf) -> {
             Entry e = cdf.getValue();
             return new SimpleStringProperty( e.getDate().toString() );
@@ -95,6 +100,8 @@ public class CashflowController implements Initializable {
 
         ObservableList<Entry> listEntries = App.dataManager.getCashflowManager().getListEntries();
         filteredData = new FilteredList<>(listEntries, p -> true);
+
+        // Display data between selected dates
 
         ObjectProperty<Predicate<Entry>> fromDateFilter = new SimpleObjectProperty<>();
         ObjectProperty<Predicate<Entry>> toDateFilter = new SimpleObjectProperty<>();
@@ -124,6 +131,8 @@ public class CashflowController implements Initializable {
 
         SortedList<Entry> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(entriesTable.comparatorProperty());
+
+        // bind data to table
         entriesTable.setItems(sortedData);
 
         toDate.valueProperty().addListener((obs, oldSelection, newSelection) -> clearDetail());
@@ -131,6 +140,11 @@ public class CashflowController implements Initializable {
         fromDate.valueProperty().addListener((obs, oldSelection, newSelection) -> clearDetail());
 
     }
+
+    /*
+    *   Catch select event from user
+    *   Show detail if user click to choose an entry
+     */
 
     private void configureEntriesTable()
     {
@@ -149,6 +163,10 @@ public class CashflowController implements Initializable {
         });
     }
 
+    /*
+    *   Show detail information for the selected entry
+     */
+
     private void setDetail(Entry _entry)
     {
 
@@ -165,6 +183,10 @@ public class CashflowController implements Initializable {
         totalProfitLabel.setText(String.format("%.0f", _entry.getRevenue() -  _entry.getInventory() - _entry.getExpense()));
     }
 
+    /*
+    *  Show total amount of revenue, expenses, inventory on starting
+    *  Clear detail from the selected date and reset to the total amount
+     */
     private void clearDetail()
     {
         detailBox2.setVisible(false);
@@ -195,8 +217,14 @@ public class CashflowController implements Initializable {
         totalProfitLabel.setText(String.format("%.0f", totalProfit));
     }
 
+    // navigate to corresponding page when button detail is clicked
+
     private void handleDetailButtons()
     {
+        /*
+        * send the current date to the sales page
+        * display data in the selected date
+        */
         revenueDetailButton.setOnAction(e -> {
             SalesController salesController = App.sceneManager.getLoader("Sales").getController();
             salesController.setDates(selectedEntry.getDate(), selectedEntry.getDate());
@@ -204,12 +232,20 @@ public class CashflowController implements Initializable {
             App.sceneManager.setPaneContent("Sales");
         });
 
+        /*
+        * Navigate to the Inventory page and display data from the selected date
+         */
+
         inventoryDetailButton.setOnAction(e -> {
             InventoryController inventoryController = App.sceneManager.getLoader("Inventory").getController();
             inventoryController.setDates(selectedEntry.getDate(), selectedEntry.getDate());
 
             App.sceneManager.setPaneContent("Inventory");
         });
+
+        /*
+        * Navigate to expense page and display data from the selected date
+         */
 
         expensesDetailButton.setOnAction(e -> {
             ExpensesController expensesController = App.sceneManager.getLoader("Expenses").getController();
@@ -219,6 +255,10 @@ public class CashflowController implements Initializable {
         });
     }
 
+    /*
+    * remove date in the date pickers
+    * display all the data in the manager
+     */
     private void handleResetButton()
     {
         resetButton.setOnAction(e -> {

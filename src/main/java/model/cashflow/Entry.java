@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class Entry {
    
     private LocalDate date;
-    private double revenue;
-    private double inventory;
-    private double expense;
+    private double revenue;     // revenue from sales figures
+    private double inventory;   // total goods receipt
+    private double expense;     // other operation costs
     private int no0fProductsSold;
     private int no0fProductsBought;
 

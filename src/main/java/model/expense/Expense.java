@@ -70,6 +70,9 @@ public class Expense {
         this.purchaser = purchaser;
     }
 
+    /*
+    *   Format data for writing in file
+     */
     public String toString()
     {
         String text = "";
@@ -82,6 +85,9 @@ public class Expense {
         return text;
     }
 
+    /*
+    *   Destructure a line to expected data when reading file
+     */
     public static Expense valueOf(String text)
     {
         String[] parts = text.split(Pattern.quote("|"));

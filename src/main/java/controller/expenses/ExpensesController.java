@@ -1,5 +1,8 @@
 package controller.expenses;
 
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -29,6 +32,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+
+/*
+*   Controller to handle binding data from manager to view
+*   Catch event when user interact with expense page
+ */
 
 public class ExpensesController implements Initializable {
 
@@ -72,6 +80,10 @@ public class ExpensesController implements Initializable {
         handleSaveButton();
         handleRemarkTextArea();
     }
+
+    /*
+    *   Bind data from manager to view
+     */
 
     public void bindExpensesTable()
     {
@@ -136,9 +148,15 @@ public class ExpensesController implements Initializable {
 
         sortedData.comparatorProperty().bind(expensesTable.comparatorProperty());
 
+        // set data to view page
         expensesTable.setItems(sortedData);
     }
 
+
+    /*
+    *   Set detail panel to appear when a row is chosen
+    *   Bind data from selected row to detail table
+     */
     private void configureExpensesTable()
     {
         expensesTable.getSelectionModel().setSelectionMode(
@@ -158,6 +176,8 @@ public class ExpensesController implements Initializable {
         });
     }
 
+
+    // show detail about an expense when a row is clicked
     private void bindDetailExpense(Expense _expense)
     {
         expenseIDLabel.setText(_expense.getExpenseID());
@@ -168,6 +188,9 @@ public class ExpensesController implements Initializable {
     }
 
 
+    /*
+    *   Display a popup to add new expense
+     */
     private void displayAddExpenseBox()
     {
         Stage window = new Stage(StageStyle.UNDECORATED);
@@ -192,6 +215,9 @@ public class ExpensesController implements Initializable {
         window.showAndWait();
     }
 
+    /*
+    *   Reset text field to null to display all available data
+     */
     private void handleResetButton()
     {
         resetButton.setOnAction(e -> {
@@ -205,6 +231,7 @@ public class ExpensesController implements Initializable {
         fromDate.setValue(from);
         toDate.setValue(to);
     }
+
 
     private void handleSaveButton()
     {

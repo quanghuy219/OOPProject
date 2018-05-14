@@ -11,6 +11,7 @@ public class ExpensesManager {
 
     public ExpensesManager()
     {
+        // ExpenseID will have the prefix 'ES...'
         currentExpenseID = "ES0000";
         setListExpenses(FXCollections.observableArrayList());
     }
