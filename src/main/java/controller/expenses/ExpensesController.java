@@ -14,9 +14,7 @@ import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +23,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.expense.Expense;
-import model.receipts.SellReceipt;
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,7 +96,7 @@ public class ExpensesController implements Initializable {
 
         purchaserColumn.setCellValueFactory((TableColumn.CellDataFeatures<Expense, String> cdf) -> {
             Expense e = cdf.getValue();
-            return new SimpleStringProperty(e.getPurchaser());
+            return new SimpleStringProperty(e.getCreatedBy());
         });
 
         costColumn.setCellValueFactory((TableColumn.CellDataFeatures<Expense, String> cdf) -> {
@@ -119,7 +116,7 @@ public class ExpensesController implements Initializable {
                 expense -> {
                     String text = searchText.getText().toLowerCase();
                     if(text.equals("")) return true;
-                    return (expense.getExpenseID().toLowerCase().contains(text) || expense.getPurchaser().toLowerCase().contains(text) || expense.getRemark().toLowerCase().contains(text));
+                    return (expense.getExpenseID().toLowerCase().contains(text) || expense.getCreatedBy().toLowerCase().contains(text) || expense.getRemark().toLowerCase().contains(text));
                 }, searchText.textProperty()));
 
 
@@ -183,7 +180,7 @@ public class ExpensesController implements Initializable {
         expenseIDLabel.setText(_expense.getExpenseID());
         costLabel.setText(String.format("%.0f",_expense.getCost()));
         purchaseDate.setValue(_expense.getPurchaseDate());
-        purchaserLabel.setText(_expense.getPurchaser());
+        purchaserLabel.setText(_expense.getCreatedBy());
         remarkTextArea.setText(_expense.getRemark());
     }
 
