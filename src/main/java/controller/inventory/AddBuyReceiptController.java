@@ -427,7 +427,7 @@ public class AddBuyReceiptController implements Initializable {
 
     private void setTotalCostLabel(double totalCost)
     {
-        totalCostLabel.setText(String.valueOf(totalCost));
+        totalCostLabel.setText(String.format("%.0f", totalCost));
     }
 
     private void setSellDate(LocalDate _date)

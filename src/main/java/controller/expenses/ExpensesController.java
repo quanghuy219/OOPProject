@@ -22,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.expense.Expense;
+import model.receipts.SellReceipt;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +39,7 @@ public class ExpensesController implements Initializable {
     @FXML private TableColumn<Expense, String> purchaserColumn;
     @FXML private TableColumn<Expense, String> costColumn;
 
-
+    @FXML private JFXButton saveButton;
     @FXML private JFXButton resetButton;
     @FXML private JFXButton addButton;
 
@@ -52,7 +53,7 @@ public class ExpensesController implements Initializable {
     @FXML private Label purchaserLabel;
     @FXML private TextArea remarkTextArea;
 
-    @FXML private VBox detailVBox;
+    @FXML private VBox detailPane;
 
     private FilteredList<Expense> filteredData;
 
@@ -68,6 +69,8 @@ public class ExpensesController implements Initializable {
         addButton.setOnAction(e -> {
             displayAddExpenseBox();
         });
+        handleSaveButton();
+        handleRemarkTextArea();
     }
 
     public void bindExpensesTable()
@@ -145,12 +148,12 @@ public class ExpensesController implements Initializable {
         expensesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 bindDetailExpense(newSelection);
-                detailVBox.setVisible(true);
+                detailPane.setVisible(true);
             }
             else
             {
                 bindDetailExpense(new Expense());
-                detailVBox.setVisible(false);
+                detailPane.setVisible(false);
             }
         });
     }
@@ -201,5 +204,32 @@ public class ExpensesController implements Initializable {
     public void setDates(LocalDate from, LocalDate to) {
         fromDate.setValue(from);
         toDate.setValue(to);
+    }
+
+    private void handleSaveButton()
+    {
+        saveButton.setOnAction(e -> {
+            Expense currentExpense = expensesTable.getSelectionModel().getSelectedItem();
+            currentExpense.setRemark(remarkTextArea.getText());
+            saveButton.setDisable(true);
+        });
+    }
+
+
+    private void handleRemarkTextArea()
+    {
+        remarkTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            Expense currentExpense = expensesTable.getSelectionModel().getSelectedItem();
+
+            if(oldValue != null && newValue != null)
+            {
+                if(!newValue.equals(oldValue) && !newValue.equals(currentExpense.getRemark()))
+                {
+                    saveButton.setDisable(false);
+                }
+                else saveButton.setDisable(true);
+            }
+        });
     }
 }

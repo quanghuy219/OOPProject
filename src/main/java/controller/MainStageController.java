@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
+import model.employee.Level;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,10 +54,19 @@ public class MainStageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         currentMenu = "xxx";
 
+        administerUserPermission();
         initializeLoaders();
         setActions();
+    }
 
-        currentButton = dashboardButton;
+    private void administerUserPermission()
+    {
+        if(App.getUser().getLevel() == Level.EMPLOYEE)
+        {
+            inventoryButton.setDisable(true);
+            expensesButton.setDisable(true);
+            cashflowButton.setDisable(true);
+        }
     }
 
     public void setActions() {
@@ -97,12 +107,13 @@ public class MainStageController implements Initializable {
 
     private void handleStylesheet(JFXButton nextButton)
     {
-        if(currentButton != nextButton)
+        if(currentButton != null && currentButton != nextButton)
         {
             currentButton.getStyleClass().remove("selected");
-            nextButton.getStyleClass().add("selected");
-            currentButton = nextButton;
         }
+
+        nextButton.getStyleClass().add("selected");
+        currentButton = nextButton;
     }
 
     public FXMLLoader getLoader(String name)

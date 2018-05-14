@@ -12,6 +12,7 @@ package controller.sales;
         import javafx.scene.Scene;
         import javafx.scene.control.*;
         import javafx.scene.layout.AnchorPane;
+        import javafx.scene.layout.VBox;
         import javafx.stage.Modality;
         import javafx.stage.Stage;
         import javafx.stage.StageStyle;
@@ -46,15 +47,15 @@ public class SalesController implements Initializable {
     @FXML private JFXButton resetButton;
     @FXML private JFXButton addButton;
     @FXML private JFXButton saveButton;
-    @FXML private JFXButton writeButton;
 
     @FXML private JFXTextField searchText;
-    @FXML private JFXComboBox<String> searchType;
     @FXML private JFXDatePicker fromDate;
     @FXML private JFXDatePicker toDate;
 
     @FXML private Label totalCostLabel;
     @FXML private TextArea remarkTextArea;
+
+    @FXML private VBox detailPane;
 
     FilteredList<SellReceipt> filteredData;
 
@@ -71,7 +72,7 @@ public class SalesController implements Initializable {
             displayAddReceiptBox();
         });
 
-        handleTextArea();
+        handleRemarkTextArea();
         handleSaveButton();
         handleResetButton();
 
@@ -117,9 +118,9 @@ public class SalesController implements Initializable {
 
         nameFilter.bind(Bindings.createObjectBinding(() ->
                 sellReceipt -> {
-                    String text = searchText.getText().toLowerCase();
-                    if(text.equals("")) return true;
-                    return (sellReceipt.getReceiptID().toLowerCase().contains(text) || sellReceipt.getCashierName().toLowerCase().contains(text) || sellReceipt.getCustomerName().toLowerCase().contains(text));
+                    String text = searchText.getText();
+                    if(text == null) return true;
+                    return (sellReceipt.getReceiptID().toLowerCase().contains(text.toLowerCase()) || sellReceipt.getCashierName().toLowerCase().contains(text.toLowerCase()) || sellReceipt.getCustomerName().toLowerCase().contains(text.toLowerCase()));
                 }, searchText.textProperty()));
 
 
@@ -168,16 +169,16 @@ public class SalesController implements Initializable {
                 bindDetailReceiptTable(newSelection);
                 setTotalCostLabel(newSelection.getTotalCost());
                 setRemarkTextArea(newSelection.getRemark());
-
                 remarkTextArea.setDisable(false);
 
-                System.out.println(newSelection.toString());
+                detailPane.setVisible(true);
             }
             else
             {
+                detailPane.setVisible(false);
                 detailReceiptTable.setItems(null);
                 setTotalCostLabel(0.0);
-                setRemarkTextArea(".");
+                remarkTextArea.setDisable(true);
                 saveButton.setDisable(true);
                 remarkTextArea.setDisable(true);
             }
@@ -258,17 +259,20 @@ public class SalesController implements Initializable {
         remarkTextArea.setText(_text);
     }
 
-    private void handleTextArea()
+    private void handleRemarkTextArea()
     {
         remarkTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
 
             SellReceipt currentSelected = sellReceiptsTable.getSelectionModel().getSelectedItem();
 
-            if(!newValue.equals(oldValue) && !newValue.equals(currentSelected.getRemark()))
+            if(oldValue != null && newValue != null)
             {
-                saveButton.setDisable(false);
+                if(!newValue.equals(oldValue) && !newValue.equals(currentSelected.getRemark()))
+                {
+                    saveButton.setDisable(false);
+                }
+                else saveButton.setDisable(true);
             }
-            else saveButton.setDisable(true);
         });
     }
 

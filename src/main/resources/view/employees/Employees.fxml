@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0" styleClass="allbackground" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employees.EmployeesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0" styleClass="allbackground" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employees.EmployeesController">
     <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0">
          <children>
@@ -59,7 +59,7 @@
               </HBox>
               <HBox prefHeight="598.0" prefWidth="1160.0">
                   <children>
-                      <TableView fx:id="employeesTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1120.0" stylesheets="@../css/table.css">
+                      <TableView fx:id="employeesTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" stylesheets="@../css/table.css">
                           <columns>
                               <TableColumn fx:id="idColumn" maxWidth="80.0" minWidth="80.0" resizable="false" text="ID" />
                               <TableColumn fx:id="nameColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" text="Name" />

@@ -94,7 +94,7 @@ public class BuyReceipt extends Receipt {
         text = text.concat("|");
 
         text = text.concat(App.stringToAscii(getRemark()));
-        text = text.concat("|");
+        text = text.concat(" |");
 
         text = text.concat(String.valueOf(getListItems().size()));
         text = text.concat("\n");

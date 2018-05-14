@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0" styleClass="allbackground" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.cashflow.CashflowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0" styleClass="allbackground" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.cashflow.CashflowController">
     <children>
         <HBox prefHeight="50.0" prefWidth="1210.0">
             <children>
@@ -42,28 +42,29 @@
                 <Insets left="40.0" top="15.0" />
             </padding>
         </HBox>
-        <HBox layoutY="50.0" prefHeight="650.0" prefWidth="1210.0" spacing="10.0">
+        <HBox layoutY="50.0" prefHeight="650.0" prefWidth="1210.0">
             <children>
-                <TableView fx:id="entriesTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0">
+                <TableView fx:id="entriesTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="480.0">
                     <columns>
-                        <TableColumn fx:id="dateColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Date" />
-                        <TableColumn fx:id="revenueColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Revenue" />
-                        <TableColumn fx:id="expenseColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Expense" />
+                        <TableColumn fx:id="dateColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" style="-fx-alignment: CENTER;" text="Date" />
+                        <TableColumn fx:id="revenueColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Revenue" />
+                  <TableColumn fx:id="inventoryColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Inventory" />
+                        <TableColumn fx:id="expenseColumn" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Expense" />
                     </columns>
                     <HBox.margin>
                         <Insets left="30.0" />
                     </HBox.margin>
                 </TableView>
-                <VBox fx:id="detailBox1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="580.0" spacing="15.0">
+                <VBox fx:id="detailBox1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="550.0" spacing="15.0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
                <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="580.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #505c6d;">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="650.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #505c6d;">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="400.0" styleClass="customTextLabel" text="More detail here">
                            <HBox.margin>
-                              <Insets left="80.0" />
+                              <Insets left="50.0" />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -75,25 +76,25 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalRevenueLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="0">
+                        <Label fx:id="totalRevenueLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="customTextLabel" text="0">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="70.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                         <Line endX="-100.0" endY="30.0" startX="-100.0">
                            <HBox.margin>
-                              <Insets left="30.0" />
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Line>
-                        <Label fx:id="totalProductsSoldLabel" contentDisplay="CENTER" layoutX="56.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="0">
+                        <Label fx:id="totalProductsSoldLabel" contentDisplay="CENTER" layoutX="56.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="customTextLabel" text="0">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="30.0" />
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="356.0" layoutY="17.0" text="products sold">
@@ -121,25 +122,25 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalInventoryLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="0">
+                        <Label fx:id="totalInventoryLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="customTextLabel" text="0">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="70.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                         <Line endX="-100.0" endY="30.0" startX="-100.0">
                            <HBox.margin>
-                              <Insets left="30.0" />
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Line>
-                        <Label fx:id="totalProductsBoughtLabel" contentDisplay="CENTER" layoutX="56.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="0">
+                        <Label fx:id="totalProductsBoughtLabel" contentDisplay="CENTER" layoutX="56.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="customTextLabel" text="0">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="30.0" />
+                              <Insets left="10.0" />
                            </HBox.margin>
                         </Label>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="356.0" layoutY="17.0" text="products bought">
@@ -164,12 +165,12 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalExpensesLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="0">
+                        <Label fx:id="totalExpensesLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="customTextLabel" text="0">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="70.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -186,12 +187,12 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalProfitLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" text="0">
+                        <Label fx:id="totalProfitLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" styleClass="customTextLabel" text="0">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="70.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                      </children>
@@ -205,7 +206,7 @@
                         <JFXButton fx:id="revenueDetailButton" prefHeight="25.0" prefWidth="70.0" styleClass="okbutton" stylesheets="@css/stylesheet.css" text="Detail" />
                      </children>
                      <VBox.margin>
-                        <Insets top="80.0" />
+                        <Insets top="30.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="40.0" prefHeight="40.0" prefWidth="200.0">
@@ -229,6 +230,9 @@
                      </VBox.margin>
                   </HBox>
                </children>
+               <HBox.margin>
+                  <Insets top="50.0" />
+               </HBox.margin>
             </VBox>
             </children>
          <padding>

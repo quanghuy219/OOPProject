@@ -92,6 +92,7 @@ public class App extends Application {
         return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }
 
+
     public static int displayConfirmBox(String _text)
     {
         AtomicInteger selection = new AtomicInteger(0);
@@ -268,6 +269,7 @@ public class App extends Application {
     public static String asciiToString(String text)
     {
         String returnString = "";
+        if(text == null|| text.equals("")) return returnString;
         String[] parts = text.split(" ");
         int length = parts.length;
         for(int i = 0; i < length; i++)

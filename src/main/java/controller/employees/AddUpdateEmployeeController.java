@@ -40,8 +40,8 @@ public class AddUpdateEmployeeController {
 
     private void setDetail()
     {
-        if(!employee.getEmployeeID().equals("EE0000"))
-            employee.setEmployeeID(App.dataManager.getEmployeesManager().getNextEmployeeID());
+//        if(!employee.getEmployeeID().equals("EE0000"))
+//            employee.setEmployeeID(App.dataManager.getEmployeesManager().getNextEmployeeID());
 
         idLabel.setText(employee.getEmployeeID());
         nameTextField.setText(employee.getName());
@@ -73,7 +73,7 @@ public class AddUpdateEmployeeController {
             employee.setUsername(usernameTextField.getText());
             employee.setPassword(passwordTextField.getText());
 
-            App.dataManager.getEmployeesManager().addEmployee(employee);
+            App.dataManager.getEmployeesManager().addUpdateEmployee(employee);
             getStage().close();
         });
 

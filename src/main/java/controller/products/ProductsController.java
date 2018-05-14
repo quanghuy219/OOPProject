@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.StageStyle;
+import model.employee.Level;
 import model.product.*;
 
 import com.jfoenix.controls.JFXButton;
@@ -84,6 +85,8 @@ public class ProductsController implements Initializable {
             }
         }.start();
 
+        administerUserPermission();
+
         addButton.setOnAction(e -> displayAddBox());
         editButton.setOnAction(e -> editButtonOnClick());
         deleteButton.setOnAction(e -> deleteButtonOnClick());
@@ -96,6 +99,16 @@ public class ProductsController implements Initializable {
 
         setCategoryComboBox();
         handleResetButton();
+    }
+
+    private void administerUserPermission()
+    {
+        if(App.getUser().getLevel() == Level.EMPLOYEE)
+        {
+            addButton.setDisable(true);
+            editButton.setDisable(true);
+            deleteButton.setDisable(true);
+        }
     }
 
     private void initializeLoaders()
@@ -142,15 +155,20 @@ public class ProductsController implements Initializable {
             System.out.println("select : "+numberSelections);
             if(numberSelections == 0)
             {
-                editButton.setDisable(true);
-                deleteButton.setDisable(true);
+                if(App.getUser().getLevel() != Level.EMPLOYEE)
+                {
+                    editButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                }
+
                 detailVBox.setVisible(false);
             }
             else if(numberSelections == 1)
             {
-
-                editButton.setDisable(false);
-                deleteButton.setDisable(false);
+                if(App.getUser().getLevel() != Level.EMPLOYEE) {
+                    editButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                }
 
                 Product p = productsTable.getSelectionModel().getSelectedItem();
                 displayDetail(p);
@@ -403,8 +421,6 @@ public class ProductsController implements Initializable {
 
             if(selection)
             {
-//            App.dataManager.getProductsManager().getProducts().add(new product());
-
                 selectedList.forEach(App.dataManager.getProductsManager().getProducts()::remove);
             }
         }

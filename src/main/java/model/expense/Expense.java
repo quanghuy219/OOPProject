@@ -77,7 +77,7 @@ public class Expense {
         text = text.concat(String.valueOf(getCost())).concat("|");
         text = text.concat(getPurchaseDate().toString()).concat("|");
         text = text.concat(getPurchaser()).concat("|");
-        text = text.concat(App.stringToAscii(getRemark()));
+        text = text.concat(App.stringToAscii(getRemark())).concat(" |");
 
         return text;
     }
@@ -85,6 +85,12 @@ public class Expense {
     public static Expense valueOf(String text)
     {
         String[] parts = text.split(Pattern.quote("|"));
+
+//        for(String p: parts)
+        {
+            System.out.print("\""+parts.length+"\""+" | ");
+        }
+        System.out.println();
 
         Expense e = new Expense();
         e.setExpenseID(parts[0]);

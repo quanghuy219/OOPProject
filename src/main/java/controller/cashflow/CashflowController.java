@@ -31,7 +31,9 @@ public class CashflowController implements Initializable {
     @FXML private TableView<Entry> entriesTable;
     @FXML private TableColumn<Entry, String> dateColumn;
     @FXML private TableColumn<Entry, String> revenueColumn;
+    @FXML private TableColumn<Entry, String> inventoryColumn;
     @FXML private TableColumn<Entry, String> expenseColumn;
+
 
     @FXML private JFXDatePicker fromDate;
     @FXML private JFXDatePicker toDate;
@@ -80,6 +82,11 @@ public class CashflowController implements Initializable {
             return new SimpleStringProperty(String.format("%.0f", e.getRevenue()));
         });
 
+        inventoryColumn.setCellValueFactory((TableColumn.CellDataFeatures<Entry, String> cdf) -> {
+            Entry e = cdf.getValue();
+            return new SimpleStringProperty(String.format("%.0f", e.getInventory()));
+        });
+
         expenseColumn.setCellValueFactory((TableColumn.CellDataFeatures<Entry, String> cdf) -> {
             Entry e = cdf.getValue();
             return new SimpleStringProperty(String.format("%.0f", e.getExpense()));
@@ -119,13 +126,10 @@ public class CashflowController implements Initializable {
         sortedData.comparatorProperty().bind(entriesTable.comparatorProperty());
         entriesTable.setItems(sortedData);
 
-        toDate.valueProperty().addListener((obs, oldSelection, newSelection) -> {
-            clearDetail();
-        });
+        toDate.valueProperty().addListener((obs, oldSelection, newSelection) -> clearDetail());
 
-        fromDate.valueProperty().addListener((obs, oldSelection, newSelection) -> {
-            clearDetail();
-        });
+        fromDate.valueProperty().addListener((obs, oldSelection, newSelection) -> clearDetail());
+
     }
 
     private void configureEntriesTable()
@@ -165,7 +169,7 @@ public class CashflowController implements Initializable {
     {
         detailBox2.setVisible(false);
 
-        double totalRevenue = 0, totalInventory = 0, totalExpense = 0, totalProfit = 0;
+        double totalRevenue = 0, totalInventory = 0, totalExpense = 0, totalProfit;
         int totalProductsSold = 0, totalProductsBought = 0;
 
         for(Entry entry: filteredData)

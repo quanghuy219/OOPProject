@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0" styleClass="allbackground" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.expenses.ExpensesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1210.0" styleClass="allbackground" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.expenses.ExpensesController">
     <children>
         <HBox prefHeight="50.0" prefWidth="1210.0">
             <children>
@@ -66,7 +66,7 @@
                         <Insets left="10.0" />
                     </HBox.margin>
                 </TableView>
-                <VBox fx:id="detailVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" spacing="15.0" visible="false">
+                <VBox fx:id="detailPane" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="600.0" spacing="15.0" visible="false">
                     <children>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="600.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #505c6d;">
                      <children>
@@ -145,7 +145,7 @@
                                         <Insets />
                                     </HBox.margin>
                                 </Label>
-                                <TextArea fx:id="remarkTextArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" styleClass="text-area" wrapText="true">
+                                <TextArea fx:id="remarkTextArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" styleClass="text-area" wrapText="true">
                                     <HBox.margin>
                                         <Insets left="30.0" top="5.0" />
                                     </HBox.margin>
@@ -155,6 +155,7 @@
                                 <Insets left="20.0" right="10.0" top="20.0" />
                             </VBox.margin>
                         </HBox>
+                  <JFXButton fx:id="saveButton" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="60.0" styleClass="okbutton" stylesheets="@../css/stylesheet.css" text="Save" />
                     </children>
                 </VBox>
             </children>

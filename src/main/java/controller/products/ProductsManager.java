@@ -12,34 +12,10 @@ public class ProductsManager {
     private ObservableList<Product> products;
     private String currentProductID;
 
-    public ProductsManager()
-    {
+    public ProductsManager() {
         products = FXCollections.observableArrayList();
         currentProductID = "PR0000";
 
-
-//        addProduct(new Book());
-//        addProduct(new MovieDisc());
-//        addProduct(new MusicDisc());
-//        addProduct(new Book());
-//
-//        addProduct(new Book());
-//        addProduct(new Book());
-//        addProduct(new Book());
-//        addProduct(new Book());
-//        addProduct(new Book());
-//        addProduct(new Book());
-//        addProduct(new MovieDisc());
-//        addProduct(new MovieDisc());
-//        addProduct(new MovieDisc());
-//        addProduct(new MovieDisc());
-//        addProduct(new MovieDisc());
-//        addProduct(new MovieDisc());
-//        addProduct(new MovieDisc());
-//        addProduct(new MusicDisc());
-//        addProduct(new product("PR0100", "Hihi", Category.BOOK, Status.ACTIVE, 100, 1000000, 1200000, Nation.UNITED_KINGDOM, null, 0));
-
-        //getNextProductID();
     }
 
     public ObservableList<Product> getProducts() {
@@ -49,15 +25,6 @@ public class ProductsManager {
     public void setProducts(ObservableList<Product> products) {
         this.products = products;
     }
-
-//    public ObservableList<product> search(String _idOrName, String _category, String _nation, boolean _isDeleted)
-//    {
-//        ObservableList<product> result;
-//
-//        if(_isDeleted)
-//        result = products.filtered(p -> p.isActive() && p.getCategory().equals(_category) && p.getNation().equals(_nation) && p.getName().contains(_idOrName) || p.getProductID().contains(_idOrName));
-//        return result;
-//    }
 
     public String getNextProductID()
     {
