@@ -59,7 +59,7 @@
                     <columns>
                         <TableColumn fx:id="expenseIDColumn" maxWidth="110.0" minWidth="110.0" prefWidth="110.0" resizable="false" text="Expense ID" />
                         <TableColumn fx:id="purchaseDateColumn" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" resizable="false" text="Purchase Date" />
-                        <TableColumn fx:id="purchaserColumn" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" resizable="false" text="Purchaser" />
+                        <TableColumn fx:id="purchaserColumn" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" resizable="false" text="Created By" />
                         <TableColumn fx:id="costColumn" maxWidth="185.0" minWidth="185.0" prefWidth="185.0" resizable="false" text="Cost" />
                     </columns>
                     <HBox.margin>
@@ -120,7 +120,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="550.0">
                             <children>
-                                <Label prefHeight="17.0" prefWidth="200.0" text="Purchaser">
+                                <Label prefHeight="17.0" prefWidth="200.0" text="Created By">
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>

@@ -60,7 +60,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="550.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="200.0" text="Purchaser">
+                  <Label prefHeight="17.0" prefWidth="200.0" text="Created By">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
